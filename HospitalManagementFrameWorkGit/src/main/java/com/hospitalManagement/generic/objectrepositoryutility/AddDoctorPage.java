@@ -1,5 +1,7 @@
 package com.hospitalManagement.generic.objectrepositoryutility;
 
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,7 +41,7 @@ WebDriver driver;
 	@FindBy(xpath = "//input[@name='cfpass']")
 	private WebElement confirmPasswordEdit;
 	
-	@FindBy(xpath = "//button[contains(@type,'submit')]")
+	@FindBy(xpath = "//button[contains(.,'Submit')]")
 	private WebElement addDoctorButton;
 
 	public WebElement getDoctorspecializationDD() {
@@ -86,6 +88,11 @@ WebDriver driver;
 		doctorEmailEdit.sendKeys(Email);
 		newPasswordEdit.sendKeys(NewPassword);
 		confirmPasswordEdit.sendKeys(ConfirmPassword);
+		Point loc=addDoctorButton.getLocation();
+		int x=loc.getX();
+		int y=loc.getY();
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("window.scrollBy(" + x + "," + y + ")");
 		addDoctorButton.click();
 		switchToAlertAndAccept(driver);
 	}
